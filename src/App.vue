@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <NewTodo @addTodo="addTodo"/>
-    <TodoList :list="list"/>
+    <TodoList :list="list" @updateTodo="updateTodo"/>
   </div>
 </template>
 
@@ -9,11 +9,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import TodoList from './components/TodoList.vue';
 import NewTodo from './components/NewTodo.vue';
+import Todo from './model/Todo';
 
-interface Todo{
-  name:string,
-  status:'done'|'todo'|'deleted'
-}
 @Component({
   components: {
     NewTodo,TodoList
@@ -29,6 +26,11 @@ export default class App extends Vue {
   addTodo(name:string){
     let todo:Todo = {name:name,status:'todo'}
     this.list.push(todo)
+  };
+  updateTodo(todo:Todo,part:Partial<Todo>){
+    let index:number = this.list.indexOf(todo)
+    let newTodo:Todo = Object.assign({},todo,part)
+    this.list.splice(index,1,newTodo)
   }
 }
 </script>
