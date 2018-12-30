@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <NewTodo @addTodo="addTodo"/>
-    <TodoList :list="list" @updateTodo="updateTodo"/>
+    <TodoList :list="list" @updateTodo="updateTodo" @deletedTodo="deleteTodo"/>
   </div>
 </template>
 
@@ -31,6 +31,10 @@ export default class App extends Vue {
     let index:number = this.list.indexOf(todo)
     let newTodo:Todo = Object.assign({},todo,part)
     this.list.splice(index,1,newTodo)
+  }
+  deleteTodo(todo:Todo){
+    let index:number = this.list.indexOf(todo)
+    this.list.splice(index,1)
   }
 }
 </script>

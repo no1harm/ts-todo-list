@@ -4,6 +4,7 @@
         <input type="checkbox" :checked="todoitem.status === 'done'"
         @change="changeStatus(todoitem,$event)">
         <span>{{todoitem.name}}</span>
+        <span @click="deleteTodo(todoitem)">删除</span>
       </div>
     </div>
 </template>
@@ -23,6 +24,9 @@ export default class TodoList extends Vue{
   changeStatus(todoitem:Todo,e:Event){
     let checked = (<HTMLInputElement>e.target).checked
     this.$emit('updateTodo',todoitem,{status:checked?'done':'todo'})
+  }
+  deleteTodo(todoitem){
+    this.$emit('deletedTodo',todoitem)
   }
 }
 </script>
