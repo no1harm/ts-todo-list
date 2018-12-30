@@ -1,7 +1,7 @@
 <template>
   <div class="new-todo">
     <input type="text" v-model="text">
-    <button @click="addTodo">添加</button>
+    <button @click="addTodo">新增</button>
   </div>
 </template>
 
