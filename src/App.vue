@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <TodoList/>
-    <NewTodo/>
+    <NewTodo @addTodo="addTodo"/>
+    <TodoList :list="list"/>
   </div>
 </template>
 
@@ -10,15 +10,28 @@ import { Component, Vue } from 'vue-property-decorator';
 import TodoList from './components/TodoList.vue';
 import NewTodo from './components/NewTodo.vue';
 
+interface Todo{
+  name:string,
+  status:'done'|'todo'|'deleted'
+}
 @Component({
   components: {
     NewTodo,TodoList
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  list:Array<Todo> = [
+    {name:'op1',status:'done'},
+    {name:'op2',status:'deleted'},
+  ];
+  addTodo(name:string){
+    let todo:Todo = {name:name,status:'todo'}
+    this.list.push(todo)
+  }
+}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
